@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Desafio Fitness Melhorado</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#66a6ff">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* ... (estilo original com barra de progresso e melhorias) ... */
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+      text-align: center;
+      padding: 40px;
+      color: #2c3e50;
+    }
+
+    h1 {
+      color: #fff;
+      text-shadow: 2px 2px 6px #1b1b1b;
+      margin-bottom: 30px;
+    }
+
+    progress {
+      width: 200px;
+      height: 20px;
+      margin: 5px;
+      border-radius: 10px;
+      appearance: none;
+    }
+
+    progress::-webkit-progress-bar {
+      background-color: #ecf0f1;
+      border-radius: 10px;
+    }
+
+    progress::-webkit-progress-value {
+      background-color: #27ae60;
+      border-radius: 10px;
+    }
+
+    .status, .objetivo, .historico {
+      margin: 20px auto;
+      font-size: 18px;
+      background: #ffffffcc;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+      max-width: 600px;
+    }
+
+    button {
+      margin: 10px 5px;
+      padding: 15px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: bold;
+      color: white;
+      transition: background-color 0.3s, transform 0.2s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    button:hover:not(:disabled) {
+      transform: scale(1.05);
+    }
+
+    button[title] {
+      position: relative;
+    }
+
+    #btnReiniciar { background-color: #16a085; }
+
+    button:disabled {
+      background-color: #bdc3c7;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .mensagem {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #27ae60;
+      min-height: 28px;
+    }
+
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 320px;
+      background: #ecf0f1;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      border: 1px solid #333;
+      padding: 12px 15px;
+      font-weight: bold;
+    }
+
+    th {
+      background-color: #2980b9;
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 20px;
+      }
+
+      button {
+        width: 100%;
+        font-size: 14px;
+        margin: 8px 0;
+      }
+
+      table {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>🏋️ Desafio Fitness Melhorado 🏃</h1>
+
+  <div class="objetivo">
+    <strong>🎯 Objetivo:</strong> Chegue ao <strong>nível 3</strong> com <strong>Energia ≥ 200</strong>!
+  </div>
+
+  <div class="status">
+    <p><strong>Energia:</strong> <span id="energia">100</span><br><progress id="barraEnergia" max="200" value="100"></progress></p>
+    <p><strong>Saúde:</strong> <span id="saude">100</span><br><progress id="barraSaude" max="200" value="100"></progress></p>
+    <p><strong>Nível:</strong> <span id="nivel">1</span></p>
+    <p><strong>Semana:</strong> <span id="semana">1</span></p>
+  </div>
+
+  <div>
+    <button title="Ganhe saúde, mas gaste energia" onclick="exercicioCasa()">🏠 Exercício em Casa</button>
+    <button title="Ganhe energia, chance de perder saúde" onclick="usarStrava()">🏃 Usar Strava</button>
+    <button title="Pequeno ganho de energia, grande perda de saúde" onclick="usarAnabolizante()">💉 Anabolizante</button>
+    <button title="Ganho alto de energia, custo alto de saúde" onclick="usarTadalafila()">💊 Tadalafila</button>
+    <button title="Recupera saúde e energia" onclick="descansar()">😴 Descansar</button>
+    <button title="Avança para a próxima semana" onclick="encerrarSemana()">📅 Encerrar Semana</button>
+    <button onclick="reiniciarJogo()" id="btnReiniciar" style="display:none;">🔁 Jogar Novamente</button>
+  </div>
+
+  <p class="mensagem" id="mensagem">Faça escolhas saudáveis!</p>
+  <div id="resultadoFinal"></div>
+
+  <div class="historico" id="historico">
+    <h3>📖 Histórico Semanal</h3>
+    <ul id="logAcoes" style="text-align: left; max-height: 250px; overflow-y: auto;"></ul>
+  </div>
+
+  <script src="jogo.js"></script>
+</body>
+</html>
